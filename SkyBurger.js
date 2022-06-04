@@ -116,7 +116,7 @@ function handleToppings() {
     if (keyIsDown(ENTER) || score === 10) {
         endGame();
         setTimeout(() => {
-            window.location.replace("/pedido.html")
+            window.location.replace("pedido.html")
         }, 2000)
     }
 
