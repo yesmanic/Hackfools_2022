@@ -1,14 +1,12 @@
 
-var toppings = []; // track falling toppins
-var stack = []; // track burger stack
+var toppings = []; 
+var stack = []; 
 
-var player; // bottom bun
+var player; 
 
 var score;
 var toppingWidth;
 var toppingChance;
-  // Top-left corner of the img is at (0, 0)
-  // Width and height are the img's original width and height
   
   function setup() {
 
@@ -43,14 +41,9 @@ var toppingChance;
         attemptNewTopping(frameCount);
         
         drawScore();
-        // loadImage('assets/quesunto.png', img => {
-        //     image(img, 0, 0);
-        //   });
+       
     }
     
-/**
- * handles player input
- */
 function handleKeys() {
 
 	if (keyIsDown(LEFT_ARROW)) {
@@ -63,13 +56,10 @@ function handleKeys() {
 
 }
 
-/**
- * tweak the values to increase difficulty
- * every half-a-second
- */
+
 function handleDifficulty(frame, score) {
 
-	if (frame % 30 === 0) { // every half-a-second
+	if (frame % 30 === 0) { 
 
 		toppingWidth = map(score, 0, 500, 100, 10);
 		toppingChance = map(score, 0, 500, 0.5, 0.999);
@@ -77,27 +67,23 @@ function handleDifficulty(frame, score) {
 
 }
 
-/**
- * draws & updates stack
- * moves the entire stack
- * shifts stack to screen
- * updates score
- */
+
 function handleStack() {
 
-	/* calculate bottom toppings first */
+	
 	for (var i = stack.length - 1; i >= 0; i--) {
 
     stack[i].update();
 
-		/* move the entire stack */
-    if (stack[i - 1] != null) // if the previous topping exists
-      stack[i].moveTo(stack[i - 1].position); // set the position to the previous topping
+		
+    if (stack[i - 1] != null) 
+      stack[i].moveTo(stack[i - 1].position); 
 
     if (stack.length - 1 > score && stack.length > 15) {
-			// if the stack exceeds half of the screen's height
+			
 
-      stack[i].move(createVector(0, +12)); // move all toppings downward
+      stack[i].move(createVector(0, +12)); 
+    
     }
 
   }
@@ -134,13 +120,9 @@ function handleToppings() {
         }, 2000)
     }
 
-		/* check for the end of the game */
-    //if (toppings[i].position.y > height)
-    	//endGame();
-
-		/* check for stacks */
+		
     if (toppings[i].stacksWith(stack[stack.length - 1])) {
-			// if the topping stacks, push to the stack
+			
 
       toppings[i].stacked = true;
       stack.push(toppings[i]);
@@ -150,34 +132,27 @@ function handleToppings() {
   }
 }
 
-/**
- * pushes a new topping to the toppings array
- * bases frequency off of frame
- */
+
 function attemptNewTopping(frame) {
 
-	if (frame % 90 === 0) { // every 1.5 seconds
+	if (frame % 90 === 0) { 
 
 		if (random() < toppingChance) {
-			// based upon a random chance, a new topping might be pushed
+			
 
 			toppings.push(new Topping(random(width), 0, toppingWidth, rCol()));
 		}
 	}
 }
 
-/**
- * draws the score
- */
+
 function drawScore() {
 
 	textSize(50);
   text(score, 10, 70);
 }
 
-/**
- * ends loop, displays message
- */
+
 function endGame() {
 
   textAlign(CENTER);
@@ -187,9 +162,7 @@ function endGame() {
   noLoop();
 }
 
-/**
- * returns a random color
- */
+
 
 
 
